@@ -1,4 +1,3 @@
-
 set nocompatible              " be iMproved, required
 set encoding=utf-8
 filetype off                  " required
@@ -13,6 +12,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree'
+
+Plugin 'jistr/vim-nerdtree-tabs'
 
 Plugin 'bling/vim-airline'
 
@@ -29,6 +30,11 @@ Plugin 'mhartington/oceanic-next'
 Plugin 'sheerun/vim-polyglot'
 
 Plugin 'joshdick/onedark.vim'
+
+Plugin 'francoiscabrol/ranger.vim'
+
+Plugin 'rbgrouleff/bclose.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,11 +59,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
+set nobackup		" do not keep a backup file, use versions instead
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -224,41 +226,11 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-function! RangeChooser()
-    let temp = tempname()
-    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
-    " with ranger 1.4.2 through 1.5.0 instead.
-    "exec 'silent !ranger --choosefile=' . shellescape(temp)
-    if has("gui_running")
-        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
-    else
-        exec 'silent !ranger --choosefiles=' . shellescape(temp)
-    endif
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'tabedit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-command! -bar RangerChooser call RangeChooser()
-
 set path=$PWD/**
 
 let mapleader=" "
-nnoremap <leader>r :<C-U>RangerChooser<CR>
+nnoremap <leader>r :RangerNewTab<CR>
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
