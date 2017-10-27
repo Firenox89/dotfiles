@@ -35,6 +35,7 @@ Plugin 'francoiscabrol/ranger.vim'
 
 Plugin 'rbgrouleff/bclose.vim'
 
+Plugin 'Chiel92/vim-autoformat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -229,8 +230,10 @@ endif " has("autocmd")
 set path=$PWD/**
 
 let mapleader=" "
-nnoremap <leader>r :RangerNewTab<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
+map <C-_> <Leader>cij
+noremap <Leader>l :Autoformat<CR>
+nnoremap <leader>r :RangerNewTab<CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
