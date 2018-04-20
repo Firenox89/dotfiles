@@ -32,9 +32,9 @@ set $mod Mod4
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-workspace 1 output DisplayPort-1
-workspace 2 output DisplayPort-1
-workspace 3 output DisplayPort-1
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
 
 workspace_auto_back_and_forth yes
 
@@ -105,7 +105,13 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 bindsym $mod+Control+Left move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
+bindsym $mod+Control+Up move workspace to output up
+bindsym $mod+Control+Down move workspace to output down
 
+bindsym Mod1+Control+Right workspace next
+bindsym Mod1+Control+Left workspace prev
+
+bindsym $mod+Shift+l exec "i3lock -c 000000"
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -126,10 +132,12 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
+bar {
+        status_command i3status
+}
 bindsym $mod+r mode "resize"
 
-bindsym $mod+p exec ~/git/wallpyper/wallpyper.py
+bindsym $mod+p exec ~/git/dotfiles/scripts/cppw.py
 
 # rofi bindings
 bindsym $mod+d exec rofi -show run
@@ -143,6 +151,10 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_out
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_12_00.3.analog-stereo -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_12_00.3.analog-stereo toggle # mute sound
 
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
@@ -152,7 +164,10 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Print exec scrot -s -e 'mv $f /tmp && feh /tmp/$f'
 bindsym Mod1+Print exec scrot -s -e 'mv $f /tmp/ && gimp /tmp/$f'
 
-exec --no-startup-id xrandr --output DisplayPort-1 --auto --output DisplayPort-0 --auto --rotate left --pos 3840x0
+exec "setxkbmap -layout us,de"
+exec "setxkbmap -option 'grp:alt_shift_toggle'"
+exec $HOME/bin/setupdisplays
+
 exec --no-startup-id compton -b -c -f
 
 exec_always --no-startup-id $HOME/bin/polybar.sh

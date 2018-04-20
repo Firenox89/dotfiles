@@ -1,7 +1,7 @@
 #zsh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(git, mvn)
 source $ZSH/oh-my-zsh.sh
 
 HISTSIZE=10000
@@ -43,29 +43,6 @@ function man() {
     man "$@"
 }
 
-function cmvn() {
-    local BLUE="[0;34m"
-    local RED="[0;31m"
-    local LIGHT_RED="[1;31m"
-    local LIGHT_GRAY="[0;37m"
-    local LIGHT_GREEN="[1;32m"
-    local LIGHT_BLUE="[1;34m"
-    local LIGHT_CYAN="[1;36m"
-    local YELLOW="[1;33m"
-    local WHITE="[1;37m"
-    local NO_COLOUR="[0m"
-    mvn "$@" | sed \
-        -e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/${LIGHT_GREEN}Tests run: \1$NO_COLOUR, Failures: $RED\2$NO_COLOUR, Errors: $YELLOW\3$NO_COLOUR, Skipped: $LIGHT_BLUE\4$NO_COLOUR/g" \
-        -e "s/\(\[\{0,1\}WARN\(ING\)\{0,1\}\]\{0,1\}.*\)/$YELLOW\1$NO_COLOUR/g" \
-        -e "s/\(\[ERROR\].*\)/$RED\1$NO_COLOUR/g" \
-        -e "s/\(\(BUILD \)\{0,1\}FAILURE.*\)/$RED\1$NO_COLOUR/g" \
-        -e "s/\(\(BUILD \)\{0,1\}SUCCESS.*\)/$LIGHT_GREEN\1$NO_COLOUR/g" \
-        -e "s/\(\[INFO\] .*\)/$LIGHT_GREEN\1$NO_COLOUR/g" \
-        -e "s/\(\[jamaicabuilder\] .*\)/$LIGHT_CYAN\1$NO_COLOUR/g" \
-        -e "s/\(\[DEBUG\] .*\)/$LIGHT_CYAN\1$NO_COLOUR/g"
-    return $PIPESTATUS
-}
-
 #edit configs
 alias zshrc='vim ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
@@ -96,18 +73,22 @@ function gradle(){ command gradle $@ && notify-send "Gradle build finished" }
 
 function mkcd() { mkdir $1; cd $1; }
 function cless() { ccat $@ | less }
-function rg() {
+
+function ra() {
   if [ -z "$RANGER_LEVEL" ]; then
-    ranger
+      $(echo ranger)
   else
     exit
   fi
 }
-
 #shell goodies
 
+background() {
+  nohup $@ >/dev/null 1>&1 &
+}
 #bindkey -v
 
+mountusb() {sudo mount /dev/sda1 /mnt/usb -o umask=000}
 alias ll='ls++ -A'
 alias vimser='vim .hg/patches/series'
 alias cppwd='echo $PWD | xsel -b'

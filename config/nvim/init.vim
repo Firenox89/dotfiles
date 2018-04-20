@@ -248,6 +248,7 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 nmap <Leader><Leader> V
+cmap w!! w !sudo tee > /dev/null %
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
