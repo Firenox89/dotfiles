@@ -7,11 +7,12 @@ primary = #00d6a1
 secondary = #e60053
 alert = #bd2c40
 
-[bar/bottom]
-bottom = true
-monitor = DisplayPort-1
+[bar/touch]
+monitor = ${env:SCREEN}
+dpi = 192
+tray-maxsize = 50
 width = 100%
-height = 27
+height = 100
 fixed-center = false
 
 background = ${colors.background}
@@ -26,16 +27,59 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Wuncon Siji:pixelsize=10;1
+font-3 = FontAwesome5Free:style=Solid:pixelsize=18:antialias=false;3
+font-4 = FontAwesome5Brands:style=Solid:pixelsize=18:antialias=false;3
 
 modules-left = i3
-modules-center = 
-modules-right = cpu filesystem volume xkeyboard memory eth temperature date powermenu
+modules-center = i3touchmenu touchvoldown touchvolup touchbrightdown touchbrightup touchkeyboard touchmodetoggle touchwallpyper
+modules-right = battery volume date
 
 tray-position = right
 tray-padding = 2
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
+
+[bar/bottom]
+bottom=true
+monitor = ${env:SCREEN}
+dpi = ${env:DPI}
+tray-maxsize = 50
+width = 100%
+height = ${env:HEIGHT}
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = Wuncon Siji:pixelsize=10;1
+font-3 = FontAwesome5Free:style=Solid:pixelsize=10:antialias=false;3
+font-4 = FontAwesome5Brands:style=Solid:pixelsize=10:antialias=false;3
+
+modules-left = i3
+modules-center = i3touchmenu touchvoldown touchvolup touchbrightdown touchbrightup touchkeyboard touchmodetoggle touchwallpyper
+modules-right = cpu cpuspeed temperature battery filesystem memory eth volume xkeyboard date
+
+tray-position = right
+tray-padding = 2
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/cpuspeed]
+type = custom/script
+exec = lscpu | grep 'CPU MHz' | awk '{$3/=1000;printf "%.1f\n", $3}'
+label = %output:0:15% GHz
+interval = 2
+format-underline = #f58800
 
 [module/xwindow]
 type = internal/xwindow
@@ -67,6 +111,44 @@ label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+time-format = %H:%M
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+label-charging = %percentage%% %time% %consumption%W
+label-discharging = %percentage%% %time% %consumption%W
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-framerate = 750
+
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
@@ -74,7 +156,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -142,13 +224,14 @@ label = %percentage_used%%
 
 [module/eth]
 type = internal/network
-interface = enp7s0
+interface = wlp2s0
 interval = 3.0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+accumulate-stats = true
+label-connected = %local_ip% ▼%downspeed:9% ▲%upspeed:9%
 
 format-disconnected =
 
@@ -169,7 +252,7 @@ format-underline = #0a6cf5
 label = %date% %time%
 
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL
@@ -198,7 +281,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
+thermal-zone = 1
 warn-temperature = 60
 
 format = <ramp> <label>
@@ -206,8 +289,8 @@ format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
@@ -241,6 +324,274 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/touchmodetoggle]
+;; Brightness down
+type=custom/text
+content="  "
+content-foreground=#fff
+click-left=exec $HOME/bin/toggleTouch.sh  
+
+[module/touchwallpyper]
+;; Brightness down
+type=custom/text
+content="  "
+content-foreground=#fff
+click-left=$HOME/git/wallpyper/wallpyper.py
+
+[module/touchbrightdown]
+;; Brightness down
+type=custom/text
+content="  "
+content-foreground=#fff
+click-left=xbacklight -dec 10
+
+[module/touchbrightup]
+;; Brightness up
+type=custom/text
+content="    "
+content-foreground=#fff
+click-left=xbacklight -inc 10
+
+[module/touchkeyboard]
+;; Open onscreen keyboard (onboard)
+type=custom/text
+content="   "
+content-foreground=#fff
+click-left=exec onboard &
+
+[module/touchredraw]
+;; Restart i3 in order to redraw polybar to fit screen orientation
+type=custom/text
+content = "    "
+content-foreground=#fff
+click-left = i3-msg 'restart'
+
+[module/touchvolmute]
+;; Mute
+type=custom/text
+content="  "
+content-foreground=#fff
+click-left=pactl set-sink-mute 0 toggle
+
+[module/touchvoldown]
+;; Volume down
+type=custom/text
+content="  "
+content-foreground=#fff
+click-left=pactl set-sink-volume 0 -5% 
+
+[module/touchvolup]
+;; Volume down
+type=custom/text
+content="    "
+content-foreground=#fff
+click-left=pactl set-sink-volume 0 +5% 
+
+[module/i3touchmenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+;; Open the menu
+label-open = "    "
+label-open-foreground = #FFF
+
+;; Close the menu
+label-close = 
+label-close-foreground = ${colors.secondary}
+label-separator = "    "
+label-separator-foreground = ${colors.foreground-alt}
+
+;; Launcher
+menu-0-0 = 
+menu-0-0-exec = menu-open-1
+
+;; Move
+menu-0-1 = 
+menu-0-1-exec = menu-open-2
+
+;; Layout
+menu-0-2 = 
+menu-0-2-exec = menu-open-3
+
+;; Split
+menu-0-3 = 
+menu-0-3-exec = menu-open-4
+
+;; Resize
+menu-0-4 = 
+menu-0-4-exec = menu-open-5
+
+;; Move to workspace
+menu-0-5 = 
+menu-0-5-exec = menu-open-6
+
+;; Kill
+menu-0-6 = 
+menu-0-6-exec = menu-open-7
+
+;; Power
+menu-0-7 ="    " 
+menu-0-7-exec = menu-open-8
+
+;; Launcher: Back to main menu
+menu-1-0 = 
+menu-1-0-exec = menu-open-0
+
+;; Launcher: chromium
+menu-1-1=
+menu-1-1-exec= google-chrome-stable &
+
+:: Launcher: urxvt
+menu-1-2="    "
+menu-1-2-exec = chromium --app=http://pr0gramm.com &
+
+;; Move: Back to main menu
+menu-2-0 = 
+menu-2-0-exec = menu-open-0
+
+;; Move: Left
+menu-2-1 = 
+menu-2-1-exec = i3-msg 'move left'
+
+;; Move: Right
+menu-2-2 = 
+menu-2-2-exec = i3-msg 'move right'
+
+;; Move: Up
+menu-2-3 = 
+menu-2-3-exec = i3-msg 'move up'
+
+;; Move: Down
+menu-2-4 = "    "
+menu-2-4-exec = i3-msg 'move down'
+
+;; Layout: Back to main menu
+menu-3-0 = 
+menu-3-0-exec = menu-open-0
+
+;; Layout: Split
+menu-3-1 = 
+menu-3-1-exec = i3-msg 'layout toggle split'
+
+;; Layout: Stacking
+menu-3-2 = 
+menu-3-2-exec = i3-msg 'layout stacking'
+
+;; Layout: Tabbed
+menu-3-3 =     
+menu-3-3-exec = i3-msg 'layout tabbed'
+
+;; Layout: Toggle floating
+menu-3-4 = "    "
+menu-3-4-exec = i3-msg 'floating toggle'
+
+;; Split: Back to main menu
+menu-4-0 = 
+menu-4-0-exec = menu-open-0
+
+;; Split: Vertical
+menu-4-1 = 
+menu-4-1-exec = i3-msg 'split v'
+
+;; Split: Horizontal
+menu-4-2 = "    "
+menu-4-2-exec = i3-msg 'split h'
+
+;; Resize: Back to main menu
+menu-5-0 = 
+menu-5-0-exec = menu-open-0
+
+;; Resize: Grow height
+menu-5-1 = 
+menu-5-1-exec = i3-msg 'resize grow height 5 px or 5 ppt'
+
+;; Resize: Shrink height
+menu-5-2 =
+menu-5-2-exec = i3-msg 'resize shrink height 5 px or 5 ppt'
+
+;; Resize: Grow width
+menu-5-3 = 
+menu-5-3-exec = i3-msg 'resize grow width 5 px or 5 ppt'
+
+;; Resize: Shrink width
+menu-5-4 = "    "
+menu-5-4-exec = i3-msg 'resize shrink width 5 px or 5 ppt'
+
+;; Move to workspace: Back to main menu
+menu-6-0 = 
+menu-6-0-exec = menu-open-0
+
+;; Move to workspace: 1
+menu-6-1 = 1
+menu-6-1-exec = i3-msg 'move container to workspace 1'
+
+;; Move to workspace: 2
+menu-6-2 = 2
+menu-6-2-exec = i3-msg 'move container to workspace 2'
+
+;; Move to workspace: 3
+menu-6-3 = 3
+menu-6-3-exec = i3-msg 'move container to workspace 3'
+
+;; Move to workspace: 4
+menu-6-4 = 4
+menu-6-4-exec = i3-msg 'move container to workspace 4'
+
+;; Move to workspace: 5
+menu-6-5 = 5
+menu-6-5-exec = i3-msg 'move container to workspace 5'
+
+;; Move to workspace: 6
+menu-6-6 = 6
+menu-6-6-exec = i3-msg 'move container to workspace 6'
+
+;; Move to workspace: 7
+menu-6-7 = 7
+menu-6-7-exec = i3-msg 'move container to workspace 7'
+
+;; Move to workspace: 8
+menu-6-8 = 8
+menu-6-8-exec = i3-msg 'move container to workspace 8'
+
+;; Move to workspace: 9
+menu-6-9 = 9
+menu-6-9-exec = i3-msg 'move container to workspace 9'
+
+;; Move to workspace: 10
+menu-6-10 = "10    "
+menu-6-10-exec = i3-msg 'move container to workspace 10'
+
+;; Kill: Back to main menu
+menu-7-0 = 
+menu-7-0-exec = menu-open-0
+
+;; Kill: Kill
+menu-7-1 = "You sure?        "
+menu-7-1-exec = i3-msg 'kill'
+
+;; Power: Back to main menu
+menu-8-0 = 
+menu-8-0-exec = menu-open-0
+
+;; Power: Screen off
+menu-8-1 = 
+menu-8-1-exec = xset dpms force off 
+
+;; Power: Lock
+menu-8-2 = 
+menu-8-2-exec = i3lock
+
+;; Power: Reboot
+menu-8-3 = 
+menu-8-3-exec = shutdown -r now
+
+;; Power: Shutdown
+menu-8-4 = "    "
+menu-8-4-exec = shutdown -h now
 
 [settings]
 screenchange-reload = true

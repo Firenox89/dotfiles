@@ -1,0 +1,51 @@
+#!/bin/bash
+
+HEIGHT=20
+WIDTH=40
+CHOICE_HEIGHT=10
+TITLE="Configs"
+MENU="Choose one of the following options:"
+
+OPTIONS=(1 "polybar"
+         2 "zsh"
+         3 "i3"
+         4 "compton"
+         5 "vim"
+         6 "rc"
+         7 "dunst"
+         8 "kitty")
+
+CHOICE=$(dialog --clear \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            vim ~/.config/polybar/config
+            ;;
+        2)
+            vim ~/.zshrc
+            ;;
+        3)
+            vim ~/.config/i3/config
+            ;;
+        4)
+            vim ~/.config/compton.conf
+            ;;
+        5)
+            vim ~/.config/nvim/init.vim
+            ;;
+        6)
+            vim ~/bin/rc
+            ;;
+        7)
+            vim ~/.config/dunst/dunstrc
+            ;;
+        8)
+            vim ~/.config/kitty/kitty.conf
+            ;;
+esac

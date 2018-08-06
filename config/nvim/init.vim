@@ -10,32 +10,20 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
 Plugin 'scrooloose/nerdtree'
-
 Plugin 'jistr/vim-nerdtree-tabs'
-
 Plugin 'bling/vim-airline'
-
 Plugin 'Shougo/vimshell.vim'
-
 Plugin 'mileszs/ack.vim'
-
 Plugin 'Valloric/YouCompleteMe'
-
 Plugin 'scrooloose/nerdcommenter'
-
 Plugin 'mhartington/oceanic-next'
-
 Plugin 'sheerun/vim-polyglot'
-
 Plugin 'joshdick/onedark.vim'
-
 Plugin 'francoiscabrol/ranger.vim'
-
 Plugin 'rbgrouleff/bclose.vim'
-
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'lambdalisue/suda.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -227,9 +215,12 @@ if has("autocmd")
 
 endif " has("autocmd")
 
+set autowrite
+au FocusLost * silent! w
 set path=$PWD/**
 
 let mapleader=" "
+let NERDTreeMapOpenInTab='\r'
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <C-_> <Leader>cij
 noremap <Leader>l :Autoformat<CR>
