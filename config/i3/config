@@ -144,8 +144,8 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec /home/firenox/bin/backlightWithNotify.sh inc 5
+bindsym XF86MonBrightnessDown exec /home/firenox/bin/backlightWithNotify.sh dec 5
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
