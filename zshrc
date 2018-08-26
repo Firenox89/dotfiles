@@ -1,7 +1,7 @@
 #zsh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git, mvn)
+plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 HISTSIZE=10000
@@ -41,27 +41,18 @@ alias -s odt=ooffice
 alias -s pdf=evince
 
 #env
-export CVSROOT=count.aicas.burg:/CVSROOT
 export CVS_RSH=ssh
 export SHELL=/bin/zsh
 export JAVA_HOME=$HOME/java/current
 export PYTHONSTARTUP=~/.pythonrc
-export PATH="$HOME/bin:$HOME/git/dotfiles/scripts:$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/bin:$JAVA_HOME/bin:$PATH"
 export VISUAL='vim'
 
 function cals() {als $@ | cless}
-
 function mkcd() { mkdir $1; cd $1; }
 function cless() { ccat $@ | less }
 
-function ra() {
-  if [ -z "$RANGER_LEVEL" ]; then
-      $(echo ranger)
-  else
-    exit
-  fi
-}
-
+function pacS() {pacman -S $@ && source ~/.zshrc}
 #shell goodies
 
 background() {
