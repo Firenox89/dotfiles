@@ -74,6 +74,45 @@ tray-padding = 2
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
+[bar/sir]
+bottom = true
+monitor = ${env:SCREEN}
+dpi = ${env:DPI}
+width = 100%
+height = ${env:HEIGHT}
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = Wuncon Siji:pixelsize=10;1
+
+modules-left = i3 
+modules-center = 
+modules-right = spotify cpu temperatureCPU cpuspeed temperatureGPU memory filesystem eth volume xkeyboard date powermenu
+
+tray-position = right
+tray-padding = 2
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+exec = python /home/firenox/git/polybar-spotify/spotify_status.py
+format-underline = #1db954
+
 [module/cpuspeed]
 type = custom/script
 exec = lscpu | grep 'CPU MHz' | awk '{$3/=1000;printf "%.1f\n", $3}'
@@ -206,7 +245,7 @@ label = %percentage_used%%
 
 [module/eth]
 type = internal/network
-interface = wlp2s0
+interface =  ${env:NETWORK}
 interval = 3.0
 
 format-connected-underline = #55aa55
@@ -273,6 +312,44 @@ format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/temperatureCPU]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input 
+format = <ramp> <label>
+format-underline = #f58800
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/temperatureGPU]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+hwmon-path = /sys/devices/pci0000:00/0000:00:03.1/0000:09:00.0/hwmon/hwmon1/temp1_input 
+format = <ramp> <label>
+format-underline = #f50000
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
 label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
