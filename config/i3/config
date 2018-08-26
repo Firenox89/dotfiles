@@ -156,7 +156,7 @@ bindsym Print exec scrot -s -e 'mv $f /tmp && feh /tmp/$f'
 bindsym Mod1+Print exec scrot -s -e 'mv $f /tmp/ && gimp /tmp/$f'
 
 exec --no-startup-id compton -b -c -f
-exec --no-startup-id dunst
+exec --no-startup-id /usr/lib/notify-osd-customizable/notify-osd
 exec --no-startup-id nm-applet
 
 exec_always --no-startup-id /home/firenox/git/dotfiles/scripts/polybar.sh
