@@ -1,0 +1,9 @@
+[Unit]
+Description=Wallpaper changer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python /home/firenox/git/wallpyper/wallpyper.py
+
+[Install]
+WantedBy=basic.target

@@ -70,6 +70,7 @@ background() {
 #bindkey -v
 
 mountusb() {sudo mount /dev/sda1 /mnt/usb -o umask=000}
+mountsd() {sudo mount /dev/sda1 /mnt/ls sdcard -o umask=000}
 alias ll='ls++ -A'
 alias cppwd='echo $PWD | xsel -b'
 alias s='cless'
