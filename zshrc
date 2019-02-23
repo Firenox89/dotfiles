@@ -58,7 +58,7 @@ function pacS() {pacman -S $@ && source ~/.zshrc}
 
 ranger() {
     if [ -z "$RANGER_LEVEL" ]; then
-      /home/firenox/git/ranger/ranger.py $@
+      $HOME/git/ranger/ranger.py $@
     else
         exit
     fi

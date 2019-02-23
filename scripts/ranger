@@ -1,7 +1,0 @@
-#! /bin/bash
-if [ -z "$RANGER_LEVEL" ]; then
-  /home/firenox/git/ranger/ranger.py $@
-else
-    exit
-fi
-
