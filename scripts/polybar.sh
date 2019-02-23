@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 primaryWithd=$(xrandr | grep 'connected primary' | awk '{print $4}' | awk -F 'x' '{print $1}')
+primaryScreen=$(xrandr | grep 'connected primary' | awk '{print $1}')
 secondScreen=$(xrandr | grep ' connected' | grep -v "primary" | awk '{print $1}')
 
 hostname=$(hostname)
@@ -12,7 +13,7 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch polybar
 if [ "$hostname" == "SirMixALot" ];then
-    SCREEN=DisplayPort-0 DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
+    SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
 else
   if [ -z $secondScreen];then
     if [ "$primaryWithd" -eq "3840" ];then

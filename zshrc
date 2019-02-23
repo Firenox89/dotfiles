@@ -45,8 +45,9 @@ export CVS_RSH=ssh
 export SHELL=/bin/zsh
 export JAVA_HOME=$HOME/java/current
 export PYTHONSTARTUP=~/.pythonrc
-export PATH="$HOME/bin:$JAVA_HOME/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$JAVA_HOME/bin:$PATH"
 export VISUAL='vim'
+alias ssh='TERM="xterm" ssh'
 
 function cals() {als $@ | cless}
 function mkcd() { mkdir $1; cd $1; }
@@ -54,6 +55,14 @@ function cless() { ccat $@ | less }
 
 function pacS() {pacman -S $@ && source ~/.zshrc}
 #shell goodies
+
+ranger() {
+    if [ -z "$RANGER_LEVEL" ]; then
+      /home/firenox/git/ranger/ranger.py $@
+    else
+        exit
+    fi
+}
 
 background() {
   nohup $@ >/dev/null 1>&1 &
@@ -70,6 +79,7 @@ alias agg="ag -g"
 alias c7="chmod 777"
 alias SirMixALot="ssh 192.168.2.107"
 
+alias crap='cd ~/crap'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'

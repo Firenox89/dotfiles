@@ -223,6 +223,7 @@ let mapleader=" "
 let NERDTreeMapOpenInTab='\r'
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <C-_> <Leader>cij
+map <C-/> <Leader>cij
 noremap <Leader>l :Autoformat<CR>
 nnoremap <leader>r :RangerNewTab<CR>
 nnoremap <Leader>o :CtrlP<CR>
