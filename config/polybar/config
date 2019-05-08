@@ -97,7 +97,7 @@ font-2 = Wuncon Siji:pixelsize=10;1
 
 modules-left = i3 
 modules-center = 
-modules-right = spotify cpu battery temperatureCPU cpuspeed temperatureGPU memory filesystem eth volume xkeyboard date powermenu
+modules-right = spotify cpu batterySnotra0 batterySnotra1 temperatureSnotra cpuspeed memory filesystem eth volume xkeyboard date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -185,6 +185,46 @@ label-unmounted-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
+full-at = 98
+time-format = %H:%M
+
+format-charging = <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+label-charging = %percentage%% %time% %consumption%W
+label-discharging = %percentage%% %time% %consumption%W
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+[module/batterySnotra1]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 98
+time-format = %H:%M
+
+format-charging = <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+label-charging = %percentage%% %time% %consumption%W
+label-discharging = %percentage%% %time% %consumption%W
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+[module/batterySnotra0]
+type = internal/battery
+battery = BAT0
+adapter = AC
 full-at = 98
 time-format = %H:%M
 
@@ -334,6 +374,25 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 [module/temperature]
 type = internal/temperature
 thermal-zone = 1
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/temperatureSnotra]
+type = internal/temperature
+thermal-zone = 10
 warn-temperature = 60
 
 format = <ramp> <label>

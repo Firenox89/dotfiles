@@ -17,6 +17,8 @@ if [ "$hostname" == "SirMixALot" ];then
   SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
 else if [ "$hostname" == "snotra" ];then
   SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=wlp4s0 polybar snotra &
+  SCREEN=DP1 DPI=96 HEIGHT=30 NETWORK=enp0s31f6 polybar snotra &
+  SCREEN=HDMI2 DPI=96 HEIGHT=30 NETWORK=enp0s31f6 polybar snotra &
 elif [ -z $secondScreen];then
   if [ "$primaryWithd" -eq "3840" ];then
     SCREEN=eDP1 DPI=192 HEIGHT=50 NETWORK=wlp2s0 polybar bottom &

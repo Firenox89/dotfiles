@@ -34,6 +34,8 @@ floating_modifier $mod
 
 workspace_auto_back_and_forth yes
 
+for_window [class="Shutter" instance="shutter"] float enable
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -103,7 +105,8 @@ bindsym $mod+Control+Down move workspace to output down
 
 bindsym $mod+Mod1+Right workspace next
 bindsym $mod+Mod1+Left workspace prev
-bindsym $mod+Mod1+Return exec /home/firenox/git/dotfiles/scripts/i3_empty_workspace.sh
+bindsym $mod+Mod1+Return exec $HOME/bin/i3_empty_workspace.sh
+bindsym $mod+Control+Return exec $HOME/bin/i3_move_to_empty_workspace.sh
 
 bindsym $mod+Shift+l exec "i3lock -c 000000"
 # reload the configuration file
@@ -130,7 +133,7 @@ bindsym $mod+r mode "resize"
 
 bindsym $mod+Return exec kitty -1
 bindsym $mod+p exec $HOME/git/wallpyper/wallpyper.py
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec PATH="$HOME/bin:$PATH" rofi -show run
 bindsym $mod+g exec google-chrome-stable
 bindsym $mod+Mod1+r exec kitty ranger
 bindsym F10 exec rofi -show drun

@@ -219,6 +219,8 @@ set autowrite
 au FocusLost * silent! w
 set path=$PWD/**
 
+set clipboard+=unnamedplus
+
 let mapleader=" "
 let NERDTreeMapOpenInTab='\r'
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
