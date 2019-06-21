@@ -133,7 +133,8 @@ bindsym $mod+r mode "resize"
 
 bindsym $mod+Return exec kitty -1
 bindsym $mod+p exec $HOME/git/wallpyper/wallpyper.py
-bindsym $mod+d exec PATH="$HOME/bin:$PATH" rofi -show run
+bindsym $mod+Shift+p exec flameshot gui
+bindsym $mod+d exec rofi -show run
 bindsym $mod+g exec google-chrome-stable
 bindsym $mod+Mod1+r exec kitty ranger
 bindsym F10 exec rofi -show drun

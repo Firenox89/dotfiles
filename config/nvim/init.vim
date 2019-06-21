@@ -218,6 +218,7 @@ endif " has("autocmd")
 set autowrite
 au FocusLost * silent! w
 set path=$PWD/**
+set clipboard+=unnamedplus
 
 set clipboard+=unnamedplus
 
