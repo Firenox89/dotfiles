@@ -120,10 +120,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 50 px or 50 ppt
-        bindsym Down resize grow height 50 px or 50 ppt
-        bindsym Up resize shrink height 50 px or 50 ppt
-        bindsym Right resize grow width 50 px or 50 ppt
+        bindsym Left resize shrink width 50 px
+        bindsym Down resize grow height 50 px
+        bindsym Up resize shrink height 50 px
+        bindsym Right resize grow width 50 px
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -134,7 +134,7 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Return exec kitty -1
 bindsym $mod+p exec $HOME/git/wallpyper/wallpyper.py
 bindsym $mod+Shift+p exec flameshot gui
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec PATH="$HOME/bin:$PATH" rofi -show run
 bindsym $mod+g exec google-chrome-stable
 bindsym $mod+Mod1+r exec kitty ranger
 bindsym F10 exec rofi -show drun

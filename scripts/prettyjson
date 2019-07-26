@@ -1,0 +1,2 @@
+#! /bin/sh
+ cat $@ | python -m json.tool | pygmentize -l json | less 

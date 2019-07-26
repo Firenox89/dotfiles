@@ -392,7 +392,7 @@ ramp-foreground = ${colors.foreground-alt}
 
 [module/temperatureSnotra]
 type = internal/temperature
-thermal-zone = 10
+thermal-zone = 12
 warn-temperature = 60
 
 format = <ramp> <label>
