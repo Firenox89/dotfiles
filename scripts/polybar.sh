@@ -17,8 +17,8 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 echo $primaryScreen
 # Launch polybar
 if [ "$hostname" == "SirMixALot" ];then
-  if [ -z $primaryScreen];then
-    SCREEN=$secondScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
+  if [ -z $primaryScreen ];then
+    SCREEN=$secondScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir --log=trace &
   else
     SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
   fi
