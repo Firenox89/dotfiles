@@ -78,7 +78,7 @@ alias less='less -FRX'
 alias ag="ag --color-match='1;31' $@"
 alias agg="ag -g"
 alias c7="chmod 777"
-alias SirMixALot="ssh 192.168.2.107"
+alias gitlog="git log --all --graph --date=short --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit $@"
 
 alias crap='cd ~/crap'
 alias ..='cd ..'
