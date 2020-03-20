@@ -1,7 +1,7 @@
 [colors]
-background = #000
+background = #cc000000
 background-alt = #444
-foreground = #dfdfdf
+foreground = #ccdfdfdf
 foreground-alt = #555
 primary = #00d6a1
 secondary = #e60053
@@ -386,8 +386,8 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 1
-warn-temperature = 60
+thermal-zone = 2
+warn-temperature = 70
 
 format = <ramp> <label>
 format-underline = #f50a4d
