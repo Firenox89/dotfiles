@@ -5,7 +5,11 @@ echo $2
 if [ "$1" == "inc" ];then
   xbacklight -inc $2
 elif [ "$1" == "dec" ];then
-  xbacklight -dec $2
+  if [ $(printf '%d' `xbacklight` ) -gt 6 ];then
+    xbacklight -dec $2
+  else
+    xbacklight -set 1
+  fi
 else
   echo "Wrong arguments."
 fi
