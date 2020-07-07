@@ -91,8 +91,8 @@ line-color = #f00
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-0 = "Tamsyn:pixelsize=12;0"
+font-1 = "IPAGothic,IPAゴシック:style=Regular"
 font-2 = Wuncon Siji:pixelsize=10;1
 
 modules-left = i3 
@@ -357,6 +357,17 @@ format-underline = #0a6cf5
 label = %date% %time%
 
 [module/volume]
+type = internal/pulseaudio
+interval = 5
+format-volume = <ramp-volume> <label-volume>
+label-muted = 🔇 muted
+label-muted-foreground = #666
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+click-right = pavucontrol &
+
+[module/volumeOld]
 type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
