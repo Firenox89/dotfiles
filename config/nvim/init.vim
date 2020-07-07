@@ -229,6 +229,8 @@ map <C-_> <Leader>cij
 map <C-/> <Leader>cij
 noremap <Leader>l :Autoformat<CR>
 nnoremap <leader>r :RangerNewTab<CR>
+nnoremap <leader><return> :w <bar> :!python %<CR>
+nnoremap <Leader><F6> *Ncgn
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
