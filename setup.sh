@@ -17,10 +17,10 @@ rm -rf $HOME/.config/kitty
 ln -s $PWD/config/kitty $HOME/.config/kitty
 cp /etc/ls++.conf $HOME/.ls++.conf
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-git clone git@github.com:ranger/ranger.git $HOME/git/ranger
-git clone git@github.com:zsh-users/zsh-syntax-highlighting.git $HOME/git/zsh-syntax-highlighting
-git clone git@github.com:Jvanrhijn/polybar-spotify.git $HOME/git/polybar-spotify
-git clone git@github.com:Firenox89/wallpyper.git $HOME/git/wallpyper
+git clone https://github.com/ranger/ranger.git $HOME/git/ranger
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/git/zsh-syntax-highlighting
+git clone https://github.com/Jvanrhijn/polybar-spotify.git $HOME/git/polybar-spotify
+git clone https://github.com/Firenox89/wallpyper.git $HOME/git/wallpyper
 
 pip install --user pynvim 
 pip3 install --user pynvim screeninfo

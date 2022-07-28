@@ -43,10 +43,10 @@ alias -s pdf=evince
 #env
 export CVS_RSH=ssh
 export SHELL=/bin/zsh
-export JAVA_HOME=$HOME/java/current
 export PYTHONSTARTUP=~/.pythonrc
 export PATH="$HOME/bin:$HOME/.local/bin:$JAVA_HOME/bin:$PATH"
 export VISUAL='vim'
+export EDITOR='vim'
 alias ssh='TERM="xterm" ssh'
 
 function cals() {als $@ | cless}
@@ -99,6 +99,13 @@ run_ranger () {
 
 zle     -N   run_ranger
 bindkey '^F' run_ranger
+
+run_lazygit () {
+    lazygit
+}
+
+zle     -N   run_lazygit
+bindkey '^G' run_lazygit
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
