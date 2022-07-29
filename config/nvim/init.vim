@@ -24,6 +24,7 @@ Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'lambdalisue/suda.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -242,6 +243,7 @@ vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
 nmap <Leader>P "+P
+nmap <Leader>u <Plug>(GitGutterUndoHunk)
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 nmap <Leader><Leader> V
