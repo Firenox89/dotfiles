@@ -9,7 +9,7 @@ MENU="Choose one of the following options:"
 OPTIONS=(1 "polybar"
          2 "zsh"
          3 "i3"
-         4 "compton"
+         4 "picom"
          5 "vim"
          6 "ranger rifle"
          7 "ranger rc"
@@ -37,7 +37,7 @@ case $CHOICE in
             vim ~/.config/i3/config
             ;;
         4)
-            vim ~/.config/compton.conf
+            vim ~/.config/picom.conf
             ;;
         5)
             vim ~/.config/nvim/init.vim

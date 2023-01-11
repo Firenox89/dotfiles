@@ -236,16 +236,15 @@ nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :wq<CR>
+nnoremap <Leader>P :! python %<CR>
 nnoremap <Leader>d :e .<CR>
 nnoremap <Leader><Left> :bprevious<CR>
 nnoremap <Leader><Right> :bnext<CR>
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
-nmap <Leader>P "+P
 nmap <Leader>u <Plug>(GitGutterUndoHunk)
 vmap <Leader>p "+p
-vmap <Leader>P "+P
 nmap <Leader><Leader> V
 cmap w!! w !sudo tee > /dev/null %
 

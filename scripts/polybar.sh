@@ -18,9 +18,10 @@ echo $primaryScreen
 # Launch polybar
 if [ "$hostname" == "SirMixALot" ];then
   if [ -z $primaryScreen ];then
-    SCREEN=$secondScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir --log=trace &
+    SCREEN=$secondScreen DPI=96 HEIGHT=30 NETWORK=enp38s0 polybar sir --log=trace &
   else
-    SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=enp6s0 polybar sir &
+    SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=enp38s0 polybar sir &
+    SCREEN=$secondScreen DPI=96 HEIGHT=30 NETWORK=enp38s0 polybar sir --log=trace &
   fi
 else if [ "$hostname" == "snotra" ];then
   SCREEN=$primaryScreen DPI=96 HEIGHT=30 NETWORK=wlp4s0 polybar snotra &

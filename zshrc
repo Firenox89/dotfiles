@@ -1,7 +1,7 @@
 #zsh
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(git git-flow-avh)
 source $ZSH/oh-my-zsh.sh
 
 HISTSIZE=10000
@@ -45,9 +45,16 @@ alias -s pdf=evince
 export CVS_RSH=ssh
 export SHELL=/bin/zsh
 export PYTHONSTARTUP=~/.pythonrc
-export PATH="$HOME/bin:$HOME/.local/bin:$JAVA_HOME/bin:$PATH"
 export VISUAL='vim'
 export EDITOR='vim'
+export CHROME_EXECUTABLE=google-chrome-stable
+export PATH="$HOME/bin:$HOME/.local/bin:$JAVA_HOME/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH":"$HOME/bin/flutter/bin"
+export PATH="$PATH":"$HOME/bin/android/platform-tools"
+
+export PYTHONSTARTUP=$HOME/git/pythonrc/pythonrc.py
+
 alias ssh='TERM="xterm" ssh'
 
 function cals() {als $@ | cless}
@@ -80,6 +87,8 @@ alias ag="ag --color-match='1;31' $@"
 alias agg="ag -g"
 alias c7="chmod 777"
 alias gitlog="git log --all --graph --date=short --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %C(bold blue)<%an> -%C(yellow)%d%Creset %s %Creset' --abbrev-commit $@"
+alias gffp="git flow feature publish"
+alias gffs="git flow feature start $@"
 
 alias ktop="kubectl top --sort-by=cpu pods --all-namespaces"
 alias crap='cd ~/crap'
@@ -99,8 +108,16 @@ run_ranger () {
     zle reset-prompt
 }
 
+run_lazygit () {
+    echo
+    lazygit < $TTY
+    zle reset-prompt
+}
+
 zle     -N   run_ranger
+zle     -N   run_lazygit
 bindkey '^F' run_ranger
+bindkey '^G' run_lazygit
 
 run_lazygit () {
     lazygit
@@ -111,4 +128,5 @@ bindkey '^G' run_lazygit
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export LOG_LEVEL=INFO
 

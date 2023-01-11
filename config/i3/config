@@ -5,6 +5,8 @@
 new_window 1pixel
 new_float 1pixel
 
+for_window [class=".*"] border pixel 1
+
 #..........
 # colors
 #..........
@@ -67,10 +69,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+Tab floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Tab focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -136,7 +138,7 @@ bindsym $mod+Return exec kitty -1
 bindsym $mod+p exec $HOME/git/wallpyper/wallpyper.py
 bindsym $mod+Shift+p exec flameshot gui
 bindsym $mod+d exec PATH="$HOME/bin:$HOME/appImages:$PATH" rofi -show run
-bindsym $mod+g exec google-chrome-stable
+bindsym $mod+g exec chromium
 bindsym $mod+Mod1+r exec kitty ranger
 bindsym F10 exec rofi -show drun
 bindsym F11 exec $HOME/bin/chooseAudioSink.py
@@ -167,6 +169,8 @@ exec --no-startup-id redshift
 exec --no-startup-id $HOME/bin/setUpScreen.sh  
 exec --no-startup-id $HOME/bin/rotate.py
 exec --no-startup-id autorandr --change
+exec --no-startup-id ibus-daemon -drxR
+exec --no-startup-id bluetoothctl power on
 
 exec_always --no-startup-id $HOME/bin/polybar.sh
 exec_always --no-startup-id $HOME/bin/touchgestures.sh
